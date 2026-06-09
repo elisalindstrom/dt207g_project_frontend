@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@100..700&display=swap');
-$background-color: #fff6f0;
-$secondary-color: #000000;
+$background-color: #fffcf2;
+$secondary-color: #0e532b;
+/* #0f572d */
 
 $header-font: "IBM Plex Mono", "Courier New", monospace;
 $body-font: "IBM Plex Sans", Arial, sans-serif;
@@ -17,8 +18,17 @@ body {
     font-family: $body-font;
 }
 
+p {
+    max-width: 60ch;
+}
+
 h1,
 h2,
 h3 {
     font-family: $header-font;
+}
+
+a {
+    color: #000000;
+    text-decoration: none;
 }
