@@ -1,5 +1,8 @@
 "use strict";
 
+const loader = document.querySelector("#loader");
+loader.classList.remove("hidden");
+
 fetchMenu();
 
 // Hämta meny
@@ -21,10 +24,11 @@ async function fetchMenu() {
 function displayMenu(menu) {
     const menuList = document.querySelector(".menu-content");
     menuList.innerHTML = "";
+    loader.classList.add("hidden");
 
     menu.forEach(item => {
         menuList.innerHTML +=
-        `<div class="menu-item">
+            `<div class="menu-item">
             <span class="item-header">
               <h3>${item.title}</h3>
               <p>${item.price}</p>

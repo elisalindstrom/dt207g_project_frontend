@@ -38,3 +38,21 @@ a {
 ul {
     list-style: none;
 }
+
+/* Formulär */
+label {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+input {
+  width: 100%;
+  padding: 0.8rem;
+  min-height: 44px;
+  font-size: 18px;
+  border: 1px solid #D9D9D9;
+  border-radius: 8px;
+  margin-top: 0.2rem;
+  margin-bottom: 0.5rem;
+  cursor: text;
+}
