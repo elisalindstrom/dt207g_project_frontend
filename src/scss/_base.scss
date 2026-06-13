@@ -1,8 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;200;300;400;500;600;700&family=IBM+Plex+Sans:wght@100..700&display=swap');
+$primary-color: #0e532b;
 $background-color: #fffcf2;
-$secondary-color: #0e532b;
-/* #0f572d */
-
 $header-font: "IBM Plex Mono", "Courier New", monospace;
 $body-font: "IBM Plex Sans", Arial, sans-serif;
 
@@ -14,7 +12,7 @@ $body-font: "IBM Plex Sans", Arial, sans-serif;
 
 body {
     background-color: $background-color;
-    color: $secondary-color;
+    color: $primary-color;
     font-family: $body-font;
     line-height: 1.4;
     font-size: 16px;
@@ -39,20 +37,51 @@ ul {
     list-style: none;
 }
 
-/* Formulär */
-label {
-  display: block;
-  margin-top: 0.25rem;
+/* KNAPPAR */
+.btn {
+    min-height: 48px;
+    font-size: 16px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
 }
 
-input {
-  width: 100%;
-  padding: 0.8rem;
-  min-height: 44px;
-  font-size: 18px;
-  border: 1px solid #D9D9D9;
-  border-radius: 8px;
-  margin-top: 0.2rem;
-  margin-bottom: 0.5rem;
-  cursor: text;
+.primary-btn {
+    background-color: $primary-color;
+    border: 1px solid $primary-color;
+    color: $background-color;
+
+    &:hover {
+        background-color: $background-color;
+        color: $primary-color;
+    }
+}
+
+.secondary-btn {
+    background-color: $background-color;
+    border: 1px solid $primary-color;
+    color: $primary-color;
+
+    &:hover {
+        background-color: $primary-color;
+        color: $background-color;
+    }
+}
+
+/* FORMULÄR */
+label {
+    display: block;
+    margin-top: 0.25rem;
+}
+
+input,
+textarea {
+    width: 100%;
+    padding: 0.8rem;
+    min-height: 44px;
+    font-size: 18px;
+    border: 1px solid #D9D9D9;
+    border-radius: 8px;
+    margin-top: 0.2rem;
+    margin-bottom: 0.5rem;
+    cursor: text;
 }

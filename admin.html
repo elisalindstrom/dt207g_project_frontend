@@ -19,8 +19,37 @@
 
 <body>
     <div class="container">
+        <header class="admin-header">
+            <img src="/logo-buster-footer.svg" alt="Logotyp Buster">
+            <h1 class="login-header">Inloggad som administratör</h1>
+            <button id="logout-btn" class="btn secondary-btn">Logga ut</button>
+        </header>
+
         <main>
-            <h1>ADMINSIDA</h1>
+            <section class="admin-section">
+                <h2>Lägg till ny rätt</h2>
+                <form id="add-form" autocomplete="off">
+                    <label for="title">Namn på pizzan</label>
+                    <input id="title" name="title" type="text">
+
+                    <label for="description">Beskrivning</label>
+                    <textarea id="description" name="description" rows="3" cols="30"></textarea>
+
+                    <label for="price">Pris</label>
+                    <input id="price" name="price" type="number">
+
+                    <p id="message"></p>
+                    <p id="confirmation"></p>
+                    <button type="submit" id="save" class="btn primary-btn">Spara</button>
+                </form>
+            </section>
+
+            <section class="admin-section">
+                <h2>Hantera meny</h2>
+                <div id="loader" class="spinner hidden"></div>
+                <div class="menu-list">
+                </div>
+            </section>
         </main>
 
     </div>
