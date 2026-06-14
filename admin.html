@@ -27,6 +27,7 @@
 
         <main>
             <section class="admin-section">
+                <div class="admin-section-content">
                 <h2>Lägg till ny rätt</h2>
                 <form id="add-form" autocomplete="off">
                     <label for="title">Namn på pizzan</label>
@@ -42,12 +43,15 @@
                     <p id="confirmation"></p>
                     <button type="submit" id="save" class="btn primary-btn">Spara</button>
                 </form>
+                </div>
             </section>
 
             <section class="admin-section">
+                <div class="admin-section-content">
                 <h2>Hantera meny</h2>
                 <div id="loader" class="spinner hidden"></div>
-                <div class="menu-list">
+                <ul class="menu-list">
+                </ul>
                 </div>
             </section>
         </main>

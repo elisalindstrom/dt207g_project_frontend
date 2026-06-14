@@ -223,13 +223,31 @@
     border-bottom: 1px solid base.$primary-color;
 }
 
-#add-form {
+.admin-section-content {
     width: 100%;
     max-width: 600px;
 }
 
-@media screen and (max-width: 800px) {
+.list-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 2rem;
 
+    .span-btn {
+        display: flex;
+        gap: 1rem;
+
+        .delete-btn {
+            background-color: transparent;
+            border: none;
+            color: #dc143c;
+        }
+    }
+}
+
+@media screen and (max-width: 800px) {
     .header {
         .header-content {
             flex-direction: column;
@@ -279,5 +297,10 @@
             max-width: 90px;
         }
 
+    }
+
+    .list-item {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
