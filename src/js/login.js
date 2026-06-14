@@ -5,6 +5,7 @@ const loginForm = document.querySelector("#login-form");
 const username = document.querySelector("#username");
 const password = document.querySelector("#password");
 const message = document.querySelector("#message");
+const loader = document.querySelector("#loader");
 
 loginForm.addEventListener("submit", loginUser);
 
@@ -16,6 +17,8 @@ async function loginUser(e) {
         message.textContent = "Fyll i användarnamn och lösenord";
         return;
     }
+
+    loader.classList.remove("hidden");
 
     let user = {
         username: username.value.trim(),
@@ -37,11 +40,11 @@ async function loginUser(e) {
             sessionStorage.setItem("user_token", data.response.token);
             window.location.href = "admin.html";
         } else {
-            throw error;
+            throw new Error();
         }
-
-        loginForm.reset();
     } catch (error) {
         message.textContent = "Felaktigt användarnamn eller lösenord";
+    } finally {
+        loader.classList.add("hidden");
     }
 }

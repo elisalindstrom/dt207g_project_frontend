@@ -13,7 +13,6 @@ async function fetchMenu() {
 
         if (!menu) return;
 
-        console.log(menu)
         displayMenu(menu);
     } catch (error) {
         console.error("Något gick fel:" + error)

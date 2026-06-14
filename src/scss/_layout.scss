@@ -119,7 +119,7 @@
 /* INNEHÅLL INDEX */
 #menu,
 #about {
-    padding: 100px;
+    padding: 5rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -136,7 +136,7 @@
 
 .section-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
 }
 
 .menu-content {
@@ -144,7 +144,20 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 5rem;
     margin: 0 auto;
-    max-width: 1280px;
+    max-width: 1100px;
+
+    .menu-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem;
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+    }
 }
 
 .spinner {
@@ -154,6 +167,7 @@
     border-top-color: transparent;
     border-radius: 50%;
     animation: rotate 0.8s infinite linear;
+    margin: 1rem auto;
 }
 
 /* INLOGGNING */
@@ -163,11 +177,10 @@
     width: 100%;
     max-width: 450px;
     margin: 0 auto;
-    padding: 1.5rem 1.5rem;
+    padding: 1.5rem 1rem;
     margin-top: 3rem;
 
     .login-header {
-        font-size: 22px;
         margin-bottom: 1rem;
     }
 
@@ -177,7 +190,7 @@
     }
 
     img {
-        max-width: 120px;
+        max-width: 100px;
         margin-bottom: 2.5rem;
         align-self: center;
     }
@@ -208,7 +221,7 @@
     text-align: center;
 
     img {
-        max-width: 120px;
+        max-width: 100px;
     }
 }
 
@@ -219,13 +232,17 @@
     text-align: left;
     width: 100%;
     margin: 0 auto;
-    padding: 50px;
+    padding: 2rem;
     border-bottom: 1px solid base.$primary-color;
-}
 
-.admin-section-content {
-    width: 100%;
-    max-width: 600px;
+    .admin-section-content {
+        width: 100%;
+        max-width: 600px;
+
+        h2 {
+            margin-bottom: 1rem;
+        }
+    }
 }
 
 .list-item {
@@ -233,7 +250,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 3rem;
 
     .span-btn {
         display: flex;
@@ -247,7 +264,14 @@
     }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 1000px) {
+    .menu-content {
+        grid-template-columns: repeat(2, 2fr);
+        gap: 4rem;
+    }
+}
+
+@media screen and (max-width: 700px) {
     .header {
         .header-content {
             flex-direction: column;
@@ -287,6 +311,7 @@
 
     .menu-content {
         grid-template-columns: 1fr;
+        gap: 3rem;
     }
 
     .footer {
