@@ -25,13 +25,30 @@
         max-width: 100%;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 10px;
 
         .logo {
             padding: 0.5rem 1rem;
 
             img {
                 max-width: 265px;
+            }
+        }
+
+        /* Mobil navigering */
+        .menu-btn {
+            display: none;
+            background-color: transparent;
+            width: auto;
+            z-index: 1000;
+            border: none;
+            padding: 0.5rem 1rem;
+
+            span {
+                display: block;
+                background-color: base.$background-color;
+                width: 26px;
+                height: 3px;
+                margin-top: 5px;
             }
         }
 
@@ -44,12 +61,13 @@
             .nav-links {
                 display: flex;
                 justify-content: flex-end;
-                gap: 2rem;
+                justify-content: center;
+                gap: 2.5rem;
                 font-weight: 400;
 
                 a {
-                    color: #0e532b;
-                    padding: 1rem;
+                    color: base.$primary-color;
+                    padding: 0.5rem;
 
                     &:hover {
                         text-decoration: underline;
@@ -69,6 +87,12 @@
     align-items: center;
     height: 100%;
     gap: 4rem;
+
+    .footer-contact {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
 
     img {
         max-width: 150px;
@@ -118,7 +142,8 @@
 
 /* INNEHÅLL INDEX */
 #menu,
-#about {
+#about,
+#booking {
     padding: 5rem 2rem;
     display: flex;
     flex-direction: column;
@@ -155,8 +180,29 @@
         .item-header {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             gap: 1rem;
         }
+    }
+}
+
+.booking-content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 0 auto;
+    max-width: 500px;
+
+    #booking-form {
+
+        #booking-btn {
+            margin-top: 1.5rem;
+            width: 100%;
+        }
+    }
+
+    #booking-confirmation {
+        margin-top: 1rem;
     }
 }
 
@@ -265,6 +311,24 @@
 }
 
 @media screen and (max-width: 1000px) {
+    .header {
+        .header-content {
+            .logo {
+                img {
+                    max-width: 150px;
+                }
+            }
+
+            .nav {
+                .nav-links {
+                    font-size: 20px;
+                    gap: 1rem;
+                    text-align: center;
+                }
+            }
+        }
+    }
+
     .menu-content {
         grid-template-columns: repeat(2, 2fr);
         gap: 4rem;
@@ -274,7 +338,6 @@
 @media screen and (max-width: 700px) {
     .header {
         .header-content {
-            flex-direction: column;
 
             .logo {
                 img {
@@ -282,13 +345,33 @@
                 }
             }
 
+            .menu-btn {
+                display: block;
+            }
+
             .nav {
-                font-size: 20px;
+                display: none;
+
+                &.active {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    position: fixed;
+                    inset: 0 auto;
+                    height: 100vh;
+                    width: 100vw;
+                    background-color: base.$primary-color;
+                }
 
                 .nav-links {
+                    flex-direction: column;
+                    gap: 0.5rem;
+                    text-align: center;
+                    font-size: 20px;
+
                     a {
-                        color: #fffcf2;
-                        font-weight: bold;
+                        color: base.$background-color;
+                        font-weight: 700;
                     }
                 }
             }
@@ -317,6 +400,10 @@
     .footer {
         flex-direction: column;
         text-align: center;
+
+        .footer-contact {
+            align-items: center;
+        }
 
         img {
             max-width: 90px;

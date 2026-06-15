@@ -22,12 +22,6 @@ export default defineConfig({
             },
             jpeg: {
                 quality: 75
-            },
-            webp: {
-                quality: 80
-            },
-            avif: {
-                quality: 70
             }
         })
     ]

@@ -123,6 +123,7 @@ function displayMenuAdmin(menu) {
             itemPrice.value = item.price;
             currentId = item._id;
 
+            message.innerHTML = "";
             formTitle.textContent = "Redigera rätt";
 
             // Scroll till formulär vid klick
@@ -136,7 +137,15 @@ function displayMenuAdmin(menu) {
 }
 
 async function updateItem(id) {
+    message.innerHTML = "";
+    confirmation.innerHTML = "";
     const userToken = sessionStorage.getItem("user_token");
+
+    // Validering
+    if (!itemTitle.value.trim() || !itemDescription.value.trim() || !itemPrice.value) {
+        message.textContent = "Fyll i namn på pizza, beskrivning samt pris";
+        return;
+    }
 
     let item = {
         title: itemTitle.value.trim(),

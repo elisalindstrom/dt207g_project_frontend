@@ -42,11 +42,14 @@ ul {
 }
 
 /* KNAPPAR */
+button {
+    cursor: pointer;
+}
+
 .btn {
     min-height: 48px;
     font-size: 16px;
     padding: 0.5rem 1rem;
-    cursor: pointer;
 }
 
 .primary-btn {
@@ -73,19 +76,24 @@ ul {
 
 /* FORMULÄR */
 label {
-    display: block;
-    margin-top: 0.25rem;
+    display: inline;
 }
 
 input,
-textarea {
+textarea,
+select {
     width: 100%;
     padding: 0.8rem;
     min-height: 44px;
     font-size: 18px;
     border: 1px solid #D9D9D9;
     border-radius: 8px;
-    margin-top: 0.2rem;
-    margin-bottom: 0.5rem;
     cursor: text;
+    margin-top: 0.3rem;
+    margin-bottom: 0.4rem;
+}
+
+input[type="radio"] {
+    width: 20px;
+    cursor: auto;
 }

@@ -19,28 +19,29 @@
   <div class="container">
     <header class="header">
       <div class="header-content">
-        <div>
-          <a href="/" class="logo"><img src="/logo-buster.svg" alt="Logotyp Buster"></a>
-        </div>
+        <a href="/" class="logo"><img src="/logo-buster.svg" alt="Logotyp Buster"></a>
 
-        <div>
+        <button id="menu-btn" class="menu-btn" aria-label="Öppna meny" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
           <nav class="nav">
             <ul class="nav-links">
               <li><a href="#menu">Meny</a></li>
+              <li><a href="#booking">Boka bord</a></li>
               <li><a href="#about">Om oss</a></li>
             </ul>
           </nav>
-        </div>
       </div>
     </header>
 
     <main>
       <section class="hero">
         <picture class="hero-image">
-          <source media="(max-width: 768px)" srcset="src/assets/hero-mobile.webp" type="image/webp">
-          <source media="(max-width: 768px)" srcset="src/assets/hero-mobile.jpg" type="image/jpg">
-          <source srcset="src/assets/hero.webp" type="image/webp">
-          <img src="/src/assets/hero.jpg" width="1600" height="1600" alt="" fetchpriority="high">
+          <source media="(max-width: 768px)" srcset="/hero-mobile.jpg" type="image/jpg">
+          <img src="/hero.jpg" width="1200" height="1200" alt="" fetchpriority="high">
         </picture>
         <div class="hero-content">
           <h1>Familjeägd pizzeria i Linnéstaden</h1>
@@ -52,6 +53,56 @@
         <h2 class="section-header">Meny</h2>
         <div id="loader" class="spinner hidden"></div>
         <div class="menu-content">
+        </div>
+      </section>
+
+      <section id="booking">
+        <div class="booking-content">
+          <h2 class="section-header">Boka bord</h2>
+
+          <form id="booking-form" autocomplete="off">
+            <label for="booking-date">Datum</label>
+            <input id="booking-date" name="booking-date" type="date">
+
+            <label for="booking-time">Tid</label>
+            <select id="booking-time">
+              <option value="" selected disabled>Välj tid</option>
+              <option value="11:30">11:30</option>
+              <option value="12:00">12:00</option>
+              <option value="12:30">12:30</option>
+              <option value="17:00">17:00</option>
+              <option value="17:30">17:30</option>
+              <option value="18:00">18:00</option>
+              <option value="18:30">18:30</option>
+              <option value="19:00">19:00</option>
+            </select>
+
+            <label for="booking-guests">Antal gäster</label>
+            <select id="booking-guests">
+              <option value="" selected disabled>Välj antal</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+
+            <label for="booking-name">Namn</label>
+            <input id="booking-name" name="booking-name" type="text">
+
+            <label for="booking-phone">Telefonnummer</label>
+            <input id="booking-phone" name="booking-phone" type="text">
+
+            <p id="message"></p>
+            <div id="loader" class="spinner hidden"></div>
+            <button type="submit" id="booking-btn" class="btn primary-btn">Boka</button>
+          </form>
+          <div id="booking-confirmation"></div>
         </div>
       </section>
 
@@ -69,7 +120,8 @@
     <footer class="footer">
       <div class="footer-contact">
         <img src="/logo-buster-footer.svg" alt="Logotyp Buster">
-        <p>Adress · telefonnummer</p>
+        <p>Linnégatan 10 · <a href="tel:0310000000">031 000 00 00</a></p>
+        <a href="mailto:info@bustergbg.com">info@bustergbg.com</a>
       </div>
 
       <div class="footer-admin">
