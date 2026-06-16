@@ -1,4 +1,5 @@
 "use strict";
+import { createIcons, UsersRound, Phone } from 'lucide';
 
 const addForm = document.querySelector("#add-form");
 const formTitle = document.querySelector("#form-title");
@@ -12,13 +13,15 @@ const loader = document.querySelector("#loader");
 let currentId = null;
 
 loader.classList.remove("hidden");
-getMenu();
+fetchMenu();
+fetchBookings();
 
 addForm.addEventListener("submit", submit);
 
 function submit(event) {
     event.preventDefault();
 
+    // Kontroll om id finns för att avgöra om rätt ska skapas eller uppdateras
     if (currentId === null) {
         createItem();
     } else {
@@ -57,7 +60,7 @@ async function createItem() {
         if (response.ok) {
             confirmation.textContent = "Ny rätt skapad";
             addForm.reset();
-            getMenu();
+            fetchMenu();
         } else {
             throw error;
         }
@@ -67,7 +70,7 @@ async function createItem() {
 }
 
 // Hämta meny
-async function getMenu() {
+async function fetchMenu() {
     try {
         const response = await fetch("https://dt207g-project-backend-hbda.onrender.com/api/menu");
         const menu = await response.json();
@@ -77,6 +80,8 @@ async function getMenu() {
         displayMenuAdmin(menu);
     } catch (error) {
         console.error("Något gick fel:" + error)
+    } finally {
+        loader.classList.add("hidden");
     }
 }
 
@@ -84,7 +89,6 @@ async function getMenu() {
 function displayMenuAdmin(menu) {
     const menuList = document.querySelector(".menu-list");
     menuList.innerHTML = "";
-    loader.classList.add("hidden");
 
     menu.forEach(item => {
         const liEl = document.createElement("li");
@@ -168,7 +172,7 @@ async function updateItem(id) {
             formTitle.textContent = "Lägg till ny rätt";
             addForm.reset();
             confirmation.textContent = "Rätten uppdaterad";
-            getMenu();
+            fetchMenu();
         }
     } catch (error) {
         message.textContent = "Rätten kunde inte uppdateras";
@@ -187,7 +191,7 @@ async function deleteMenuItem(id) {
         });
 
         if (response.ok) {
-            getMenu();
+            fetchMenu();
         }
     } catch (error) {
         console.error("Något gick fel:" + error);
@@ -199,4 +203,92 @@ logoutBtn.addEventListener("click", () => {
     sessionStorage.removeItem("user_token");
     window.location.href = ("index.html");
 })
+
+async function fetchBookings() {
+    const userToken = sessionStorage.getItem("user_token");
+
+    try {
+        const response = await fetch("https://dt207g-project-backend-hbda.onrender.com/api/booking", {
+            headers: {
+                "Authorization": `Bearer ${userToken}`
+            }
+        });
+
+        const bookings = await response.json();
+
+        if (!bookings) return;
+
+        displayBookings(bookings)
+    } catch (error) {
+        console.error("Något gick fel:" + error)
+    } finally {
+        loader.classList.add("hidden");
+    }
+}
+
+function displayBookings(bookings) {
+    const bookingList = document.querySelector(".booking-list");
+    bookingList.innerHTML = "";
+
+    bookings.forEach(booking => {
+        const liEl = document.createElement("li");
+        liEl.classList.add("list-item");
+
+        const spanContentEl = document.createElement("span");
+        const spanButtonsEl = document.createElement("span");
+        spanButtonsEl.classList.add("span-btn");
+
+        const dateOnly = new Date(booking.date).toLocaleDateString();
+        const dateEl = document.createElement("h3");
+        dateEl.textContent = `${dateOnly} ${booking.time}`;
+
+        const guestsEl = document.createElement("p");
+        guestsEl.innerHTML = `<i data-lucide="users-round" aria-label="Antal gäster"></i> ${booking.guests}`
+
+        const nameEl = document.createElement("p");
+        nameEl.classList.add("bold");
+        nameEl.textContent = booking.name;
+        
+        const phoneEl = document.createElement("p");
+        phoneEl.innerHTML =`<i data-lucide="phone" aria-label="Telefonnummer"></i> ${booking.phone}`;
+
+        const deleteBtn = document.createElement("button")
+        deleteBtn.textContent = "Ta bort";
+        deleteBtn.classList.add("btn", "delete-btn");
+
+        spanContentEl.append(dateEl, nameEl, guestsEl, phoneEl);
+        spanButtonsEl.append(deleteBtn);
+        liEl.append(spanContentEl, spanButtonsEl);
+        bookingList.appendChild(liEl);
+
+        deleteBtn.addEventListener("click", () => {
+            deleteBooking(booking._id);
+        })
+    })
+    createIcons({
+  icons: {
+    UsersRound,
+    Phone
+  }
+});
+}
+
+// Ta bort en bokning
+async function deleteBooking(id) {
+    const userToken = sessionStorage.getItem("user_token");
+    try {
+        const response = await fetch(`https://dt207g-project-backend-hbda.onrender.com/api/booking/${id}`, {
+            method: "DELETE",
+            headers: {
+                "Authorization": `Bearer ${userToken}`
+            }
+        });
+
+        if (response.ok) {
+            fetchBookings();
+        }
+    } catch (error) {
+        console.error("Något gick fel:" + error);
+    }
+}
 

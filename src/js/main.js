@@ -15,6 +15,7 @@ const bookingPhone = document.querySelector("#booking-phone");
 const message = document.querySelector("#message");
 const confirmation = document.querySelector("#booking-confirmation");
 const bookingBtn = document.querySelector("#booking-btn");
+
 const loader = document.querySelector("#loader");
 loader.classList.remove("hidden");
 
@@ -25,13 +26,17 @@ menuBtn.addEventListener("click", function () {
     nav.classList.toggle("active");
     const expanded = nav.classList.contains("active");
 
-    menuBtn.setAttribute("aria-expanded", expanded)
+    menuBtn.setAttribute("aria-expanded", expanded);
+
+    // Kontroll om expanded är true eller false för att ändra aria-label
+    menuBtn.setAttribute("aria-label", expanded ? "Stäng meny" : "Öppna meny");
 })
 
 mobileMenuLinks.forEach(link => {
     link.addEventListener("click", function () {
         nav.classList.remove("active");
-        menuBtn.setAttribute("aria-expanded", "false")
+        menuBtn.setAttribute("aria-expanded", "false");
+        menuBtn.setAttribute("aria-label", "Öppna meny");
     });
 });
 
@@ -46,6 +51,8 @@ async function fetchMenu() {
         displayMenu(menu);
     } catch (error) {
         console.error("Något gick fel:" + error)
+    } finally {
+        loader.classList.add("hidden");
     }
 }
 
@@ -53,7 +60,6 @@ async function fetchMenu() {
 function displayMenu(menu) {
     const menuList = document.querySelector(".menu-content");
     menuList.innerHTML = "";
-    loader.classList.add("hidden");
 
     menu.forEach(item => {
         menuList.innerHTML +=
@@ -69,7 +75,7 @@ function displayMenu(menu) {
 
 bookingForm.addEventListener("submit", createBooking);
 
-// Skapa ny rätt
+// Skapa ny bokning
 async function createBooking(event) {
     event.preventDefault();
     message.innerHTML = "";
