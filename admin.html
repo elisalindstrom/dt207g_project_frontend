@@ -30,36 +30,37 @@
                 <div class="admin-section-content">
                     <h2>Bokningar</h2>
                     <div id="loader" class="spinner hidden"></div>
+                    <p class="empty-state hidden"></p>
                     <ul class="booking-list">
                     </ul>
                 </div>
             </section>
             <section class="admin-section">
                 <div class="admin-section-content">
-                <h2 id="form-title">Lägg till ny rätt</h2>
-                <form id="add-form" autocomplete="off">
-                    <label for="title">Namn på pizza</label>
-                    <input id="title" name="title" type="text">
+                    <h2 id="form-title">Lägg till ny rätt</h2>
+                    <form id="add-form" autocomplete="off">
+                        <label for="title">Namn på pizza</label>
+                        <input id="title" name="title" type="text">
 
-                    <label for="description">Beskrivning</label>
-                    <textarea id="description" name="description" rows="3" cols="30"></textarea>
+                        <label for="description">Beskrivning</label>
+                        <textarea id="description" name="description" rows="3" cols="30"></textarea>
 
-                    <label for="price">Pris</label>
-                    <input id="price" name="price" type="number">
+                        <label for="price">Pris</label>
+                        <input id="price" name="price" type="number">
 
-                    <p id="message"></p>
-                    <p id="confirmation"></p>
-                    <button type="submit" id="save" class="btn primary-btn">Spara</button>
-                </form>
+                        <ul id="error"></ul>
+                        <p id="confirmation"></p>
+                        <button type="submit" id="save" class="btn primary-btn">Spara</button>
+                    </form>
                 </div>
             </section>
 
             <section class="admin-section">
                 <div class="admin-section-content">
-                <h2>Hantera meny</h2>
-                <div id="loader" class="spinner hidden"></div>
-                <ul class="menu-list">
-                </ul>
+                    <h2>Hantera meny</h2>
+                    <p class="empty-state-menu hidden"></p>
+                    <ul class="menu-list">
+                    </ul>
                 </div>
             </section>
         </main>

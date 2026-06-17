@@ -52,6 +52,7 @@
       <section id="menu">
         <h2 class="section-header">Meny</h2>
         <div id="loader" class="spinner hidden"></div>
+        <p class="empty-state hidden"></p>
         <div class="menu-content">
         </div>
       </section>
@@ -60,7 +61,7 @@
         <div class="booking-content">
           <h2 class="section-header">Boka bord</h2>
 
-          <form id="booking-form" autocomplete="off">
+          <form id="booking-form" autocomplete="on">
             <label for="booking-date">Datum</label>
             <input id="booking-date" name="booking-date" type="date">
 
@@ -96,9 +97,9 @@
             <input id="booking-name" name="booking-name" type="text">
 
             <label for="booking-phone">Telefonnummer</label>
-            <input id="booking-phone" name="booking-phone" type="text">
+            <input id="booking-phone" name="booking-phone" type="tel">
 
-            <p id="message"></p>
+            <ul id="error"></ul>
             <div id="loader" class="spinner hidden"></div>
             <button type="submit" id="booking-btn" class="btn primary-btn">Boka</button>
           </form>
@@ -108,12 +109,13 @@
 
       <section id="about">
         <div class="about-content">
-        <h2 class="section-header">Om oss</h2>
-        <p>Sedan 2011 har vi bakat pizzor i vår lilla lokal på Linnégatan i Göteborg. Från början var vi bara två bakom
-          disken, men mycket har hänt sedan dess.
-          Idag består vårt köksteam av 5 kockar. Våra pizzor gräddas i vedeldad ugn och är toppade med italienska
-          råvaror.</p>
-        <p>Välkommen in antingen som drop in-gäst eller efter bordsbokning!</p>
+          <h2 class="section-header">Om oss</h2>
+          <p>Sedan 2011 har vi bakat pizzor i vår lilla lokal på Linnégatan i Göteborg. Från början var vi bara två
+            bakom
+            disken, men mycket har hänt sedan dess.
+            Idag består vårt köksteam av 5 kockar. Våra pizzor gräddas i vedeldad ugn och är toppade med italienska
+            råvaror.</p>
+          <p>Välkommen in antingen som drop in-gäst eller med bordsbokning!</p>
         </div>
       </section>
     </main>
