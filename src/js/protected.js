@@ -145,7 +145,7 @@ async function createItem() {
         }
     } catch (error) {
         console.error(error);
-        message.textContent = "Rätten kunde inte skapas.";
+        message.textContent = "Rätten kunde inte skapas";
     }
 }
 
