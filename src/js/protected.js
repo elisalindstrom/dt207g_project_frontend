@@ -12,7 +12,7 @@ const bookingPhone = document.querySelector("#booking-phone");
 const bookingMessage = document.querySelector("#booking-error");
 const bookingConfirmation = document.querySelector("#booking-confirmation");
 
-// Bokningar
+// Utskrift Bokningar
 const bookingList = document.querySelector(".booking-list");
 const emptyState = document.querySelector(".empty-state");
 
@@ -25,7 +25,7 @@ const itemPrice = document.querySelector("#price");
 const message = document.querySelector("#error");
 const confirmation = document.querySelector("#confirmation");
 
-// Menylista
+// Utskrift Meny
 const menuList = document.querySelector(".menu-list");
 const emptyStateMenu = document.querySelector(".empty-state-menu")
 
@@ -133,6 +133,7 @@ function displayBookings(bookings) {
             bookingPhone.classList.remove("input-error");
 
             bookingMessage.innerHTML = "";
+            bookingConfirmation.innerHTML = "";
             bookingFormTitle.textContent = "Redigera bokning";
 
             // Scroll till formulär vid klick
@@ -231,9 +232,9 @@ function validateBookingForm() {
             liEl.textContent = error;
             bookingMessage.appendChild(liEl);
         })
-        return null;
+        return null; // Returnerar null vid error
     }
-    // Returnerar bokningsobjektet
+    // Returnerar bokningsobjekt om inga error
     return {
         date: bookingDate.value.trim(),
         time: bookingTime.value.trim(),
@@ -343,153 +344,6 @@ async function fetchMenu() {
     }
 }
 
-// Kontroll om id finns för att avgöra hur formuläret ska användas (ny rätt eller uppdatera rätt)
-addForm.addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    if (currentIdMenu === null) {
-        createItem();
-    } else {
-        updateItem(currentIdMenu);
-    }
-});
-
-// Skapa ny rätt
-async function createItem() {
-    message.innerHTML = "";
-    confirmation.innerHTML = "";
-    const userToken = sessionStorage.getItem("user_token");
-
-    let errors = [];
-
-    // Validering input
-    if (!itemTitle.value.trim()) {
-        errors.push("Ange namn på pizzan");
-        itemTitle.classList.add("input-error");
-    } else {
-        itemTitle.classList.remove("input-error");
-    }
-
-    if (!itemDescription.value.trim()) {
-        errors.push("Ange beskrivning av pizzan");
-        itemDescription.classList.add("input-error");
-    } else {
-        itemDescription.classList.remove("input-error");
-    }
-
-    if (!itemPrice.value) {
-        errors.push("Ange pris");
-        itemPrice.classList.add("input-error");
-    } else {
-        itemPrice.classList.remove("input-error");
-    }
-
-    if (errors.length > 0) {
-        message.innerHTML = "";
-
-        errors.forEach(error => {
-            let liEl = document.createElement("li");
-            liEl.textContent = error;
-            message.appendChild(liEl);
-        })
-        return; // Return vid felmeddelanden
-    }
-
-    const item = {
-        title: itemTitle.value.trim(),
-        description: itemDescription.value.trim(),
-        price: itemPrice.value
-    };
-
-    try {
-        const response = await fetch("https://dt207g-project-backend-hbda.onrender.com/api/menu", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${userToken}`
-            },
-            body: JSON.stringify(item)
-        })
-
-        const data = await response.json();
-
-        if (response.ok) {
-            confirmation.textContent = "Ny rätt skapad!";
-            addForm.reset();
-            fetchMenu();
-        } else {
-            // Felmeddelande från backend skickas vidare till catch
-            throw new Error(data.message);
-        }
-    } catch (error) {
-        console.error(error);
-        message.textContent = "Rätten kunde inte skapas";
-    }
-}
-
-// Uppdatera menyalternativ
-async function updateItem(id) {
-    message.innerHTML = "";
-    confirmation.innerHTML = "";
-    const userToken = sessionStorage.getItem("user_token");
-
-    let errors = [];
-
-    // Validering input
-    if (!itemTitle.value.trim()) {
-        errors.push("Ange namn på pizzan");
-    }
-
-    if (!itemDescription.value.trim()) {
-        errors.push("Ange beskrivning av pizzan");
-    }
-
-    if (!itemPrice.value) {
-        errors.push("Ange pris");
-    }
-
-    if (errors.length > 0) {
-        message.innerHTML = "";
-
-        errors.forEach(error => {
-            let liEl = document.createElement("li");
-            liEl.textContent = error;
-            message.appendChild(liEl);
-        })
-        return; // Return vid felmeddelanden
-    }
-
-    const item = {
-        title: itemTitle.value.trim(),
-        description: itemDescription.value.trim(),
-        price: itemPrice.value
-    };
-
-    try {
-        const response = await fetch(`https://dt207g-project-backend-hbda.onrender.com/api/menu/${id}`, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${userToken}`
-            },
-            body: JSON.stringify(item)
-        });
-
-        if (response.ok) {
-            currentIdMenu = null;
-            addFormTitle.textContent = "Lägg till ny rätt";
-            confirmation.textContent = "Rätten uppdaterad";
-            addForm.reset();
-            fetchMenu();
-        } else {
-            throw new Error("Kunde inte uppdatera rätten");
-        }
-    } catch (error) {
-        console.error(error);
-        message.textContent = error.message;
-    }
-}
-
 // Skriv ut meny
 function displayMenuAdmin(menu) {
     menuList.innerHTML = "";
@@ -543,7 +397,9 @@ function displayMenuAdmin(menu) {
             itemTitle.classList.remove("input-error");
             itemDescription.classList.remove("input-error");
             itemPrice.classList.remove("input-error");
+
             message.innerHTML = "";
+            confirmation.innerHTML = "";
             addFormTitle.textContent = "Redigera rätt";
 
             // Scroll till formulär vid klick
@@ -554,6 +410,126 @@ function displayMenuAdmin(menu) {
             deleteMenuItem(item._id);
         })
     })
+}
+
+// Kontroll om id finns för att avgöra hur formuläret ska användas (ny rätt eller uppdatera rätt)
+addForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const item = validateMenuForm();
+    if (!item) return;
+
+    if (currentIdMenu === null) {
+        createItem(item);
+    } else {
+        updateItem(currentIdMenu, item);
+    }
+});
+
+function validateMenuForm() {
+    message.innerHTML = "";
+    confirmation.innerHTML = "";
+
+    let errors = [];
+
+    // Validering input
+    if (!itemTitle.value.trim()) {
+        errors.push("Ange namn på pizzan");
+        itemTitle.classList.add("input-error");
+    } else {
+        itemTitle.classList.remove("input-error");
+    }
+
+    if (!itemDescription.value.trim()) {
+        errors.push("Ange beskrivning av pizzan");
+        itemDescription.classList.add("input-error");
+    } else {
+        itemDescription.classList.remove("input-error");
+    }
+
+    if (!itemPrice.value) {
+        errors.push("Ange pris");
+        itemPrice.classList.add("input-error");
+    } else {
+        itemPrice.classList.remove("input-error");
+    }
+
+    if (errors.length > 0) {
+        message.innerHTML = "";
+
+        errors.forEach(error => {
+            let liEl = document.createElement("li");
+            liEl.textContent = error;
+            message.appendChild(liEl);
+        })
+        return null; // Returnerar null vid error
+    }
+
+    // Returnerar menyobjekt om inga error
+    return {
+        title: itemTitle.value.trim(),
+        description: itemDescription.value.trim(),
+        price: itemPrice.value
+    };
+}
+
+// Skapa ny rätt
+async function createItem(item) {
+    const userToken = sessionStorage.getItem("user_token");
+
+    try {
+        const response = await fetch("https://dt207g-project-backend-hbda.onrender.com/api/menu", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${userToken}`
+            },
+            body: JSON.stringify(item)
+        })
+
+        const data = await response.json();
+
+        if (response.ok) {
+            confirmation.textContent = "Ny rätt skapad!";
+            addForm.reset();
+            fetchMenu();
+        } else {
+            // Felmeddelande från backend skickas vidare till catch
+            throw new Error(data.message);
+        }
+    } catch (error) {
+        console.error(error);
+        message.textContent = "Rätten kunde inte skapas";
+    }
+}
+
+// Uppdatera menyalternativ
+async function updateItem(id, item) {
+    const userToken = sessionStorage.getItem("user_token");
+
+    try {
+        const response = await fetch(`https://dt207g-project-backend-hbda.onrender.com/api/menu/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${userToken}`
+            },
+            body: JSON.stringify(item)
+        });
+
+        if (response.ok) {
+            currentIdMenu = null;
+            addFormTitle.textContent = "Lägg till ny rätt";
+            confirmation.textContent = "Rätten uppdaterad";
+            addForm.reset();
+            fetchMenu();
+        } else {
+            throw new Error("Kunde inte uppdatera rätten");
+        }
+    } catch (error) {
+        console.error(error);
+        message.textContent = error.message;
+    }
 }
 
 // Ta bort en rätt från meny

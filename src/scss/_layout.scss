@@ -88,7 +88,6 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    height: 100%;
     gap: 4rem;
 
     .footer-contact {
@@ -118,7 +117,6 @@
 .hero {
     display: flex;
     min-height: 100vh;
-    max-height: 100%;
     border-bottom: 1px solid #0e532b;
 
     .hero-image {
@@ -150,7 +148,7 @@
     }
 }
 
-/* INNEHÅLL INDEX */
+/* INNEHÅLL STARTSIDA */
 #menu,
 #about,
 #booking {
@@ -260,6 +258,7 @@
     }
 }
 
+/* Errormeddelanden/bekräftelse formulär */
 #message,
 #error,
 #booking-error {
@@ -278,7 +277,7 @@
     border: 1px solid #dc143c;
 }
 
-/* ADMIN-SIDOR */
+/* ADMINSIDA */
 .admin-header {
     display: flex;
     flex-direction: column;
@@ -317,13 +316,14 @@
             text-align: center;
         }
 
-            .admin-section-column {
+        .admin-section-column {
             max-width: 500px;
             width: 100%;
         }
     }
 }
 
+/* Meny- och bokningskort */
 .list-item {
     display: flex;
     justify-content: space-between;
@@ -382,10 +382,12 @@
     }
 
     .admin-section {
-    .admin-section-content {
-        grid-template-columns: 1fr;
-        padding: 1rem;
-    }
+        padding: 12px;
+
+        .admin-section-content {
+            grid-template-columns: 1fr;
+            padding: 1rem;
+        }
     }
 }
 
@@ -466,6 +468,15 @@
         gap: 3rem;
     }
 
+    .list-item {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .container-btn {
+            flex-direction: row;
+        }
+    }
+
     .footer {
         flex-direction: column;
         align-items: center;
@@ -478,14 +489,5 @@
             max-width: 90px;
         }
 
-    }
-
-    .list-item {
-        flex-direction: column;
-        align-items: flex-start;
-
-        .container-btn {
-            flex-direction: row;
-        }
     }
 }
