@@ -67,7 +67,7 @@ button {
     color: $background-color;
 
     &:hover {
-        background-color: $background-color;
+        background-color: transparent;
         color: $primary-color;
     }
 }
