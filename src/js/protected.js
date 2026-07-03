@@ -448,14 +448,14 @@ function validateMenuForm() {
 
     // Validering input
     if (!itemTitle.value.trim()) {
-        errors.push("Ange namn på pizzan");
+        errors.push("Ange namn på rätt");
         itemTitle.classList.add("input-error");
     } else {
         itemTitle.classList.remove("input-error");
     }
 
     if (!itemDescription.value.trim()) {
-        errors.push("Ange beskrivning av pizzan");
+        errors.push("Ange beskrivning");
         itemDescription.classList.add("input-error");
     } else {
         itemDescription.classList.remove("input-error");
