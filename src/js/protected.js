@@ -72,6 +72,7 @@ async function fetchBookings() {
 // Skriv ut bokningar
 function displayBookings(bookings) {
     bookingList.innerHTML = "";
+    let currentDate = "";
 
     // Empty state-hantering
     if (bookings.length === 0) {
@@ -83,6 +84,17 @@ function displayBookings(bookings) {
     emptyState.classList.add("hidden");
 
     bookings.forEach(booking => {
+        const bookingDateHeading = new Date(booking.date).toLocaleDateString();
+
+        /* Grupperar bokningar med samma datum under en gemensam datumrubrik
+        Bokningens datum jämförs med föregående boknings datum för att avgöra när ny rubrik ska skapas */
+        if (bookingDateHeading !== currentDate) {
+            currentDate = bookingDateHeading;
+            const heading = document.createElement("h3");
+            heading.textContent = bookingDateHeading;
+            bookingList.appendChild(heading);
+        }
+
         const liEl = document.createElement("li");
         liEl.classList.add("list-item");
 
@@ -90,15 +102,15 @@ function displayBookings(bookings) {
         const buttonsEl = document.createElement("div");
         buttonsEl.classList.add("container-btn");
 
-        const dateOnly = new Date(booking.date).toLocaleDateString();
-        const dateEl = document.createElement("h3");
-        dateEl.textContent = `${dateOnly} ${booking.time}`;
+        //
+        const dateEl = document.createElement("p");
+        dateEl.classList.add("bold");
+        dateEl.textContent = `${booking.time}`;
 
         const guestsEl = document.createElement("p");
         guestsEl.innerHTML = `<i data-lucide="users-round" aria-label="Antal gäster"></i> ${booking.guests}`
 
         const nameEl = document.createElement("p");
-        nameEl.classList.add("bold");
         nameEl.textContent = booking.name;
 
         const phoneEl = document.createElement("p");
@@ -119,13 +131,14 @@ function displayBookings(bookings) {
 
         changeBtn.addEventListener("click", () => {
             // Fyll i värden i formuläret
-            bookingDate.value = dateOnly;
+            bookingDate.value = bookingDateHeading;
             bookingTime.value = booking.time;
             bookingGuests.value = booking.guests;
             bookingName.value = booking.name;
             bookingPhone.value = booking.phone;
             currentIdBooking = booking._id;
 
+            // Tar bort eventuella errormarkeringar från formulär
             bookingDate.classList.remove("input-error");
             bookingTime.classList.remove("input-error");
             bookingGuests.classList.remove("input-error");
@@ -394,6 +407,7 @@ function displayMenuAdmin(menu) {
             itemPrice.value = item.price;
             currentIdMenu = item._id;
 
+            // Tar bort eventuella errormarkeringar från formulär
             itemTitle.classList.remove("input-error");
             itemDescription.classList.remove("input-error");
             itemPrice.classList.remove("input-error");

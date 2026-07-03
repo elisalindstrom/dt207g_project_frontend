@@ -31,14 +31,6 @@
             <section class="admin-section">
                 <div class="admin-section-content">
                     <div class="admin-section-column">
-                        <h2>Bokningar</h2>
-                        <div id="loader" class="spinner hidden"></div>
-                        <p class="empty-state hidden"></p>
-                        <ul class="booking-list">
-                        </ul>
-                    </div>
-
-                    <div class="admin-section-column">
                         <h2 id="booking-form-title">Lägg till ny bokning</h2>
                         <form id="booking-form" autocomplete="on">
                             <label for="booking-date">Datum</label>
@@ -80,9 +72,18 @@
 
                             <ul id="booking-error"></ul>
                             <p id="booking-confirmation"></p>
-                            <button type="submit" id="booking-btn" class="btn primary-btn">Boka</button>
+                            <button type="submit" id="booking-btn" class="btn primary-btn">Spara</button>
                         </form>
                     </div>
+
+                    <div class="admin-section-column">
+                        <h2>Hantera bokningar</h2>
+                        <div id="loader" class="spinner hidden"></div>
+                        <p class="empty-state hidden"></p>
+                        <ul class="booking-list">
+                        </ul>
+                    </div>
+                </div>
             </section>
 
             <!-- Hantering meny -->
