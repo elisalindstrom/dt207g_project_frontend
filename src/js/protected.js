@@ -90,9 +90,13 @@ function displayBookings(bookings) {
         Bokningens datum jämförs med föregående boknings datum för att avgöra när ny rubrik ska skapas */
         if (bookingDateHeading !== currentDate) {
             currentDate = bookingDateHeading;
-            const heading = document.createElement("h3");
-            heading.textContent = bookingDateHeading;
-            bookingList.appendChild(heading);
+
+            const liHeadingEl = document.createElement("li");
+            const headingEl = document.createElement("h3");
+            headingEl.textContent = bookingDateHeading;
+
+            liHeadingEl.appendChild(headingEl)
+            bookingList.appendChild(liHeadingEl);
         }
 
         const liEl = document.createElement("li");
