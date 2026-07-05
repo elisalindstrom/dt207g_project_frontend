@@ -106,10 +106,9 @@ function displayBookings(bookings) {
         const buttonsEl = document.createElement("div");
         buttonsEl.classList.add("container-btn");
 
-        //
-        const dateEl = document.createElement("p");
-        dateEl.classList.add("bold");
-        dateEl.textContent = `${booking.time}`;
+        const timeEl = document.createElement("p");
+        timeEl.classList.add("bold");
+        timeEl.textContent = `${booking.time}`;
 
         const guestsEl = document.createElement("p");
         guestsEl.innerHTML = `<i data-lucide="users-round" aria-label="Antal gäster"></i> ${booking.guests}`
@@ -128,7 +127,7 @@ function displayBookings(bookings) {
         deleteBtn.textContent = "Ta bort";
         deleteBtn.classList.add("btn", "delete-btn");
 
-        contentEl.append(dateEl, nameEl, guestsEl, phoneEl);
+        contentEl.append(timeEl, nameEl, guestsEl, phoneEl);
         buttonsEl.append(changeBtn, deleteBtn);
         liEl.append(contentEl, buttonsEl);
         bookingList.appendChild(liEl);
@@ -314,7 +313,7 @@ async function updateBooking(id, booking) {
         }
     } catch (error) {
         console.error(error);
-        message.textContent = error.message;
+        bookingMessage.textContent = error.message;
     }
 }
 
@@ -331,6 +330,23 @@ async function deleteBooking(id) {
         });
 
         if (response.ok) {
+
+            if (currentIdBooking === id) {
+                currentIdBooking = null;
+                bookingFormTitle.textContent = "Lägg till ny bokning";
+                bookingMessage.innerHTML = "";
+                bookingConfirmation.textContent = "";
+
+                // Tar bort eventuella errormarkeringar från formulär
+                bookingDate.classList.remove("input-error");
+                bookingTime.classList.remove("input-error");
+                bookingGuests.classList.remove("input-error");
+                bookingName.classList.remove("input-error");
+                bookingPhone.classList.remove("input-error");
+
+                bookingForm.reset();
+            }
+
             fetchBookings();
         } else {
             throw new Error("Bokningen kunde inte tas bort");
@@ -563,6 +579,20 @@ async function deleteMenuItem(id) {
         });
 
         if (response.ok) {
+
+            if (currentIdMenu === id) {
+                currentIdMenu = null;
+                addFormTitle.textContent = "Lägg till ny rätt";
+                message.innerHTML = "";
+                confirmation.textContent = "";
+
+                // Tar bort eventuella errormarkeringar från formulär
+                itemTitle.classList.remove("input-error");
+                itemDescription.classList.remove("input-error");
+                itemPrice.classList.remove("input-error");
+                addForm.reset();
+            }
+
             fetchMenu();
         } else {
             throw new Error("Rätten kunde inte tas bort");
