@@ -234,8 +234,8 @@ function validateBookingForm() {
     if (!bookingPhone.value.trim()) {
         errors.push("Telefonnummer måste anges");
         bookingPhone.classList.add("input-error");
-    } else if (bookingPhone.value.trim().length < 7) {
-        errors.push("Telefonnummer måste vara minst 7 siffror");
+    } else if (bookingPhone.value.trim().length < 8 || !/^\+?[\d-]+$/.test(bookingPhone.value.trim())) {
+        errors.push("Telefonnummer måste vara minst 8 tecken långt");
         bookingPhone.classList.add("input-error");
     } else {
         bookingPhone.classList.remove("input-error");
